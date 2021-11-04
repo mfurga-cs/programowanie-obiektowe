@@ -16,7 +16,7 @@ dependencies {
 }
 
 application {
-    mainClassName = 'lab1.World'
+    mainClassName = 'lab4.Main'
 }
 
 test {
