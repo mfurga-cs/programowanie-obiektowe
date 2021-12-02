@@ -1,0 +1,42 @@
+package lab7.map.impl;
+
+import lab7.Grass;
+import lab7.IMapElement;
+import lab7.Vector2d;
+
+import java.util.concurrent.ThreadLocalRandom;
+
+public class GrassFieldMap extends AbstractWorldMap {
+
+    private final int targetGrassFields;
+
+    public GrassFieldMap(int grassFields) {
+        this.targetGrassFields = grassFields;
+        this.width = (int)Math.sqrt(grassFields * 10);
+        this.height = (int)Math.sqrt(grassFields * 10);
+
+        this.lowerLeft = new Vector2d(0, 0);
+        this.upperRight = new Vector2d(this.width - 1, this.height - 1);
+
+        generateRandomGrassFields();
+    }
+
+    @Override
+    public boolean remove(IMapElement element) {
+        boolean result = super.remove(element);
+        generateRandomGrassFields();
+        return result;
+    }
+
+    private void generateRandomGrassFields() {
+        int currentGrassFields = this.findElementsByType(Grass.class).size();
+        for (int i = currentGrassFields; i < this.targetGrassFields; i++) {
+            Vector2d v;
+            do {
+                v = new Vector2d(ThreadLocalRandom.current().nextInt(0, this.width),
+                                 ThreadLocalRandom.current().nextInt(0, this.height));
+            } while (this.isOccupied(v));
+            this.elements.put(v, new Grass(v));
+        }
+    }
+}
