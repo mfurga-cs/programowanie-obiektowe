@@ -1,6 +1,8 @@
 package lab7.map.impl;
 
+import javafx.application.Application;
 import lab7.Animal;
+import lab7.App;
 import lab7.IMapElement;
 import lab7.Vector2d;
 import lab7.map.IPositionChangeObserver;
